@@ -27,6 +27,6 @@ public class jobController
     public String createJob(@RequestBody Job job)
     {
         jobService.createJob(job);
-        return "Job Added successfully";
+        return "Jobs Added successfully";
     }
 }
