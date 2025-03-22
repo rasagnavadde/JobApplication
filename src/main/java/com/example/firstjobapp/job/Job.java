@@ -27,6 +27,9 @@ public class Job {
         this.location = location;
     }
 
+    //@Version // Optional: Helps with optimistic locking
+    //private Integer version=0;
+
     public Long getId() {
         return id;
     }
