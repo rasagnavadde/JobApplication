@@ -26,9 +26,13 @@ public class CompanyController {
     @PutMapping("/{id}")
     public ResponseEntity<String> updateCompany(@PathVariable Long id,
                                                 @RequestBody Company company){
-        companyService.updateCompany(company, id);
-        return new ResponseEntity<>("Company updated successfully",
-                HttpStatus.OK);
+        boolean updated=companyService.updateCompany(company, id);
+        if(updated){
+            return new ResponseEntity<>("Company updated successfully",
+                    HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Company does not exists",
+                HttpStatus.NOT_FOUND);
     }
 
 
@@ -38,6 +42,27 @@ public class CompanyController {
         companyService.createCompany(company);
         return new ResponseEntity<>("Company added Successfully",
                 HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteCompany(@PathVariable Long id)
+    {
+        boolean isDeleted=companyService.deleteCompanyById(id);
+        if (isDeleted)
+        {
+            return new ResponseEntity<>("Company Deleted Successfully",
+                    HttpStatus.OK);
+        }
+         return new ResponseEntity<>("Company Not Found",HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Company> getCompany(@PathVariable Long id)
+    {
+        Company company=companyService.getCompanyById(id);
+        if(company!=null)
+             return new ResponseEntity<>(company,HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 
